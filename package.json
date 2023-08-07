@@ -1,0 +1,47 @@
+{
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "tsc && vite build && vite build --ssr"
+    },
+    "devDependencies": {
+        "@headlessui/react": "^1.4.2",
+        "@inertiajs/react": "^1.0.0",
+        "@tailwindcss/forms": "^0.5.3",
+        "@types/node": "^18.13.0",
+        "@types/react": "^18.0.28",
+        "@types/react-dom": "^18.0.10",
+        "@types/ziggy-js": "^1.3.2",
+        "@vitejs/plugin-react": "^4.0.3",
+        "autoprefixer": "^10.4.12",
+        "axios": "^1.1.2",
+        "laravel-vite-plugin": "^0.7.5",
+        "postcss": "^8.4.18",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "tailwindcss": "^3.2.1",
+        "typescript": "^5.0.2",
+        "vite": "^4.0.0"
+    },
+    "dependencies": {
+        "@emotion/react": "^11.11.1",
+        "@mantine/carousel": "^6.0.17",
+        "@mantine/core": "^6.0.17",
+        "@mantine/dates": "^6.0.17",
+        "@mantine/dropzone": "^6.0.17",
+        "@mantine/form": "^6.0.17",
+        "@mantine/hooks": "^6.0.17",
+        "@mantine/modals": "^6.0.17",
+        "@mantine/notifications": "^6.0.17",
+        "@mantine/prism": "^6.0.17",
+        "@mantine/spotlight": "^6.0.17",
+        "@mantine/tiptap": "^6.0.17",
+        "@tabler/icons-react": "^2.30.0",
+        "@tiptap/extension-link": "^2.0.4",
+        "@tiptap/react": "^2.0.4",
+        "@tiptap/starter-kit": "^2.0.4",
+        "dayjs": "^1.11.9",
+        "embla-carousel-react": "^7.1.0"
+    }
+}
