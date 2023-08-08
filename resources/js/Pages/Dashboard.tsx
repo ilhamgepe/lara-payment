@@ -3,9 +3,28 @@ import { Head } from "@inertiajs/react";
 import { PageProps } from "@/types";
 import { Carousel } from "@mantine/carousel";
 import { Button, Image, Text } from "@mantine/core";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import { notifications } from "@mantine/notifications";
 
-export default function Dashboard({ auth }: PageProps) {
+export default function Dashboard({ auth, flash }: PageProps) {
+    console.log(flash);
+
+    useEffect(() => {
+        if (flash.success) {
+            notifications.show({
+                title: "Success",
+                message: flash.success,
+                color: "green",
+            });
+        }
+        if (flash.error) {
+            notifications.show({
+                title: "Failed",
+                message: flash.error,
+                color: "red",
+            });
+        }
+    }, [flash]);
     return (
         <AuthenticatedLayout user={auth.user}>
             <Head title="Dashboard" />
@@ -50,7 +69,9 @@ export default function Dashboard({ auth }: PageProps) {
                             <Text size="xl" weight={500}>
                                 Shop now!
                             </Text>
-                            <Button>Buy</Button>
+                            <Button component="a" href={route("createOrder")}>
+                                Buy
+                            </Button>
                         </div>
                     </div>
                 </div>

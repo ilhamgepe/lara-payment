@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\gateway\PaypayController;
+use App\Http\Controllers\gateway\PaypalController;
 use App\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('paypal')->withoutMiddleware([VerifyCsrfToken::class])->group(function () {
-    Route::post('callback', [PaypayController::class, 'callback']);
-    Route::post('failed', [PaypayController::class, 'failed']);
-})->name('paypal.callback');
+    Route::get('createOrder', [PaypalController::class, 'createOrder'])->name('createOrder');
+    Route::get('callback', [PaypalController::class, 'callback']);
+    Route::get('failed', [PaypalController::class, 'failed']);
+});

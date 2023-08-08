@@ -25,6 +25,7 @@ createServer((page) =>
 
             return (
                 <MantineProvider withGlobalStyles withNormalizeCSS>
+                    <Notifications position="bottom-right" />
                     <App {...props} />
                 </MantineProvider>
             );
