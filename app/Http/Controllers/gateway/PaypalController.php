@@ -16,11 +16,11 @@ class PaypalController extends Controller
     {
         // $returnUrl = 'https://73fa-2001-448a-2082-6312-d5ff-73de-a0e3-9784.ngrok-free.app/paypal/success';
         // $cancelUrl = 'https://73fa-2001-448a-2082-6312-d5ff-73de-a0e3-9784.ngrok-free.app/paypal/failed';
-        $provider = new PayPalClient;
+        $provider = new PayPalClient();
         $provider->setApiCredentials(config('paypal'));
-        $provider->getAccessToken();
+        $provider->setAccessToken($provider->getAccessToken());
 
-        $response = $provider->setReturnAndCancelUrl('https://73fa-2001-448a-2082-6312-d5ff-73de-a0e3-9784.ngrok-free.app/paypal/success', 'https://73fa-2001-448a-2082-6312-d5ff-73de-a0e3-9784.ngrok-free.app/paypal/failed')->createOrder(json_decode('{
+        $response = $provider->createOrder(json_decode('{
             "intent": "CAPTURE",
             "purchase_units": [
               {
@@ -29,9 +29,19 @@ class PaypalController extends Controller
                   "value": 100
                 }
               }
-            ]
+            ],
+            "application_context": {
+                "brand_name": "ilham ganteng",
+                "locale": "en-US",
+                "user_action": "PAY_NOW",
+                "payment_method": {
+                  "payer_selected": "PAYPAL",
+                  "payee_preferred": "IMMEDIATE_PAYMENT_REQUIRED"
+                },
+                "return_url": "https://73fa-2001-448a-2082-6312-d5ff-73de-a0e3-9784.ngrok-free.app/paypal/success",
+                "cancel_url": "https://73fa-2001-448a-2082-6312-d5ff-73de-a0e3-9784.ngrok-free.app/paypal/failed"
+              }
         }', true));
-
 
         if (isset($response['id'])) {
             $payerActionHrefs = collect($response['links'])
@@ -50,11 +60,15 @@ class PaypalController extends Controller
 
     public function success(Request $request)
     {
-        dd($request->all(), 'success');
+        // dd($request->all(), 'success');
+        session()->flash('success', 'pembayaran berhasil');
+        return Inertia::render('Dashboard');
     }
     public function failed(Request $request)
     {
-        dd($request->all(), 'failed');
+        // dd($request->all(), 'failed');
+        session()->flash('error', 'pembayaran gagal');
+        return Inertia::render('Dashboard');
     }
     public function notify(Request $request)
     {
