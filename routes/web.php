@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -25,6 +26,9 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('test', function (Request $request) {
+    return Inertia::render('test');
+});
 
 
 Route::get('/dashboard', function () {
@@ -39,3 +43,4 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/paymentgateway/paypal.php';
+require __DIR__ . '/paymentgateway/stripe.php';

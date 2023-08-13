@@ -1,5 +1,5 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 import { PageProps } from "@/types";
 import { Carousel } from "@mantine/carousel";
 import { Button, Image, Text } from "@mantine/core";
@@ -7,7 +7,7 @@ import { useEffect, useRef } from "react";
 import { notifications } from "@mantine/notifications";
 
 export default function Dashboard({ auth, flash }: PageProps) {
-    console.log(flash);
+    console.log(flash, auth);
 
     useEffect(() => {
         if (flash.success) {
@@ -69,9 +69,32 @@ export default function Dashboard({ auth, flash }: PageProps) {
                             <Text size="xl" weight={500}>
                                 Shop now!
                             </Text>
-                            <Button component="a" href={route("createOrder")}>
+
+                            {/* <Button
+                                component={Link}
+                                href={route("stripe.payment")}
+                                method="post"
+                                type="submit"
+                                data={{
+                                    action: "buy",
+                                    product: "1",
+                                    price: 40,
+                                }}
+                            >
                                 Buy
-                            </Button>
+                            </Button> */}
+                            <form
+                                action={route("stripe.payment")}
+                                method="post"
+                            >
+                                <input
+                                    type="hidden"
+                                    name="_token"
+                                    value={auth.csrf_token}
+                                />
+                                <input type="hidden" name="price" value={40} />
+                                <Button type="submit">Buy</Button>
+                            </form>
                         </div>
                     </div>
                 </div>

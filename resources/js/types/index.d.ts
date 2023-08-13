@@ -32,6 +32,7 @@ export type PageProps<
 > = T & {
     auth: {
         user: User;
+        csrf_token: string;
     };
     flash: Flash;
     ziggy: Ziggy;
