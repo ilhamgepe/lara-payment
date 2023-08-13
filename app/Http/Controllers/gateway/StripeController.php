@@ -4,6 +4,8 @@ namespace App\Http\Controllers\gateway;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Response;
 use Inertia\Inertia;
 
 class StripeController extends Controller
@@ -39,5 +41,10 @@ class StripeController extends Controller
     public function cancel()
     {
         return redirect('dashboard')->with('error', 'PEMBAYARAN GAGAL!');
+    }
+    public function callback(Request $request)
+    {
+        Log::info($request);
+        return Response::json(['success' => true], 200);
     }
 }
